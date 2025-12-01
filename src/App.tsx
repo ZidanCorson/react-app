@@ -1,3 +1,6 @@
+import { useState } from "react";
+import Alert from "./components/Alert";
+import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 
 function App() {
@@ -7,9 +10,12 @@ function App() {
     console.log(item);
   };
 
-  return (
+  const [alertVisible, setAlertVisible] = useState(false);
+  return ( 
     <div>
+      {alertVisible && <Alert onClose={() => setAlertVisible(false)}>Alert message</Alert> }
       <ListGroup items={items} heading="Cities" onSelectItem={handleSelectItem}/>
+      <Button color="success" onClick={() => {console.log("Button clicked"); setAlertVisible(true)}}>Click me</Button> 
     </div>
   );
 }
