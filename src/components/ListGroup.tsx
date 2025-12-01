@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 
 interface Props {
     items: string[];
@@ -9,11 +9,6 @@ function ListGroup({ items, heading }: Props) {
   
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  
-  
-  const handleClick = (event: MouseEvent) => {
-    console.log(event);
-  };
   return (
     <>
       <h1>{heading}</h1>
