@@ -4,6 +4,7 @@ import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 import CityDetails from "./components/CityDetails";
 import { items } from "./data/cities";
+import "./App.css";
 
 function App() {
   const [selectedCity, setSelectedCity] = useState("");
@@ -25,37 +26,39 @@ function App() {
   };
 
   return ( 
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <h1 className="mb-4 text-center">City Selector App</h1>
-          {alertVisible && (
-            <Alert onClose={() => setAlertVisible(false)}>
-              {selectedCity 
-                ? `Yeah that's a great city to go to, I can give you some photos and travel suggestions for ${selectedCity}.` 
-                : "Please select a city first."}
-            </Alert>
-          )}
-          
-          {view === "list" && (
-            <>
-              <div className="card shadow-sm mb-4">
-                <div className="card-body">
-                  <ListGroup items={items} heading="Cities" onSelectItem={handleSelectItem}/>
+    <div className="app-overlay">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            <h1 className="mb-4 text-center">Luxury Travel Selector</h1>
+            {alertVisible && (
+              <Alert onClose={() => setAlertVisible(false)}>
+                {selectedCity 
+                  ? `Excellent choice. We have curated an exclusive experience for ${selectedCity}.` 
+                  : "Please select a destination to begin your journey."}
+              </Alert>
+            )}
+            
+            {view === "list" && (
+              <>
+                <div className="card shadow-sm mb-4">
+                  <div className="card-body">
+                    <ListGroup items={items} heading="Select Destination" onSelectItem={handleSelectItem}/>
+                  </div>
                 </div>
-              </div>
-              <div className="text-center">
-                <Button color="success" onClick={handleButtonClick}>Go to City</Button> 
-              </div>
-            </>
-          )}
+                <div className="text-center">
+                  <Button color="success" onClick={handleButtonClick}>Explore City</Button> 
+                </div>
+              </>
+            )}
 
-          {view === "details" && selectedCity && (
-            <CityDetails 
-              selectedCity={selectedCity} 
-              onBack={() => {setView("list"); setAlertVisible(false); setSelectedCity("");}} 
-            />
-          )}
+            {view === "details" && selectedCity && (
+              <CityDetails 
+                selectedCity={selectedCity} 
+                onBack={() => {setView("list"); setAlertVisible(false); setSelectedCity("");}} 
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
