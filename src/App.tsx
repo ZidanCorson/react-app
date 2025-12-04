@@ -24,8 +24,8 @@ function App() {
     ],
     "Paris": [
       "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=300&h=200&fit=crop",
-      "https://images.unsplash.com/photo-1499856871940-a09627c6dcf6?w=300&h=200&fit=crop",
-      "https://images.unsplash.com/photo-1511739001486-6bfe10ce7859?w=300&h=200&fit=crop"
+      "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?w=300&h=200&fit=crop",
+      "https://images.unsplash.com/photo-1471623320832-752e8bbf8413?w=300&h=200&fit=crop"
     ],
     "London": [
       "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=300&h=200&fit=crop",
