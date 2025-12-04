@@ -23,6 +23,12 @@ h1 {
   font-weight: 700;
 }
 
+.card h1 {
+  color: #2c3e50;
+  text-shadow: none;
+  margin-bottom: 1.5rem;
+}
+
 .card {
   background: rgba(255, 255, 255, 0.95) !important;
   border: none !important;
