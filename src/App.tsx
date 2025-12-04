@@ -34,6 +34,14 @@ function App() {
     ]
   };
 
+  const citySuggestions: { [key: string]: string } = {
+    "New York": "Visit Central Park, see a Broadway show, and walk across the Brooklyn Bridge.",
+    "San Francisco": "Walk across the Golden Gate Bridge, visit Alcatraz, and ride a cable car.",
+    "Tokyo": "Visit the Senso-ji Temple, cross the Shibuya Crossing, and explore Akihabara.",
+    "Paris": "Visit the Eiffel Tower, explore the Louvre Museum, and walk along the Seine River.",
+    "London": "Visit the British Museum, see the Tower of London, and ride the London Eye."
+  };
+
   const [selectedCity, setSelectedCity] = useState("");
   const [view, setView] = useState("list");
   const [alertVisible, setAlertVisible] = useState(false);
@@ -83,6 +91,9 @@ function App() {
               <div className="card-body">
                 <h2>Photos and Advice for {selectedCity}</h2>
                 <p>Here are some great photos and travel tips for your trip to {selectedCity}!</p>
+                <div className="alert alert-info">
+                  <strong>Travel Tip:</strong> {citySuggestions[selectedCity]}
+                </div>
                 <div className="row mb-3">
                   <div className="col-4">
                     <img src={cityImages[selectedCity]?.[0]} className="img-fluid rounded shadow-sm" alt={`${selectedCity} view 1`} />
