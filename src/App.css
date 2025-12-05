@@ -16,6 +16,15 @@ body {
   padding-bottom: 2rem;
 }
 
+.main-title {
+  font-family: 'Playfair Display', serif;
+  color: #ffffff !important;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  font-weight: 700;
+  font-size: 3.5rem;
+  letter-spacing: 1px;
+}
+
 h1 {
   font-family: 'Playfair Display', serif;
   color: #fff;

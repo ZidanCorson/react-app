@@ -30,7 +30,7 @@ function App() {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-8">
-            <h1 className="mb-4 text-center">Luxury Travel Selector</h1>
+            <h1 className="mb-4 text-center main-title">Luxury Travel Selector</h1>
             {alertVisible && (
               <Alert onClose={() => setAlertVisible(false)}>
                 {selectedCity 
