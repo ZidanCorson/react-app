@@ -1,4 +1,5 @@
 import Button from "./Button";
+import WeatherWidget from "./WeatherWidget";
 import { cityImages, citySuggestions } from "../data/cities";
 
 interface Props {
@@ -12,6 +13,9 @@ const CityDetails = ({ selectedCity, onBack }: Props) => {
       <div className="card-body">
         <h2>Photos and Advice for {selectedCity}</h2>
         <p>Here are some great photos and travel tips for your trip to {selectedCity}!</p>
+        
+        <WeatherWidget city={selectedCity} />
+
         <div className="alert alert-info">
           <strong>Travel Tip:</strong> {citySuggestions[selectedCity]}
         </div>

@@ -35,3 +35,11 @@ export const citySuggestions: { [key: string]: string } = {
   "Paris": "Visit the Eiffel Tower, explore the Louvre Museum, and walk along the Seine River.",
   "London": "Visit the British Museum, see the Tower of London, and ride the London Eye."
 };
+
+export const cityCoordinates: { [key: string]: { lat: number; lng: number } } = {
+  "New York": { lat: 40.7128, lng: -74.0060 },
+  "San Francisco": { lat: 37.7749, lng: -122.4194 },
+  "Tokyo": { lat: 35.6762, lng: 139.6503 },
+  "Paris": { lat: 48.8566, lng: 2.3522 },
+  "London": { lat: 51.5074, lng: -0.1278 }
+};
