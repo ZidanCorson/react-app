@@ -1,4 +1,4 @@
-export const items = ["New York", "San Francisco", "Tokyo", "Paris", "London"];
+export const items = ["New York", "San Francisco", "Tokyo", "Paris", "London", "Marrakech"];
 
 export const cityImages: { [key: string]: string[] } = {
   "New York": [
@@ -25,6 +25,11 @@ export const cityImages: { [key: string]: string[] } = {
     "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=300&h=200&fit=crop",
     "https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=300&h=200&fit=crop",
     "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=300&h=200&fit=crop"
+  ],
+  "Marrakech": [
+    "https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=300&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=300&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1553531889-e6cf4d692b1b?w=300&h=200&fit=crop"
   ]
 };
 
@@ -33,7 +38,8 @@ export const citySuggestions: { [key: string]: string } = {
   "San Francisco": "Walk across the Golden Gate Bridge, visit Alcatraz, and ride a cable car.",
   "Tokyo": "Visit the Senso-ji Temple, cross the Shibuya Crossing, and explore Akihabara.",
   "Paris": "Visit the Eiffel Tower, explore the Louvre Museum, and walk along the Seine River.",
-  "London": "Visit the British Museum, see the Tower of London, and ride the London Eye."
+  "London": "Visit the British Museum, see the Tower of London, and ride the London Eye.",
+  "Marrakech": "Explore the Medina souks, visit the Majorelle Garden, and see the Koutoubia Mosque."
 };
 
 export const cityCoordinates: { [key: string]: { lat: number; lng: number } } = {
@@ -41,5 +47,6 @@ export const cityCoordinates: { [key: string]: { lat: number; lng: number } } = 
   "San Francisco": { lat: 37.7749, lng: -122.4194 },
   "Tokyo": { lat: 35.6762, lng: 139.6503 },
   "Paris": { lat: 48.8566, lng: 2.3522 },
-  "London": { lat: 51.5074, lng: -0.1278 }
+  "London": { lat: 51.5074, lng: -0.1278 },
+  "Marrakech": { lat: 31.6295, lng: -7.9811 }
 };
