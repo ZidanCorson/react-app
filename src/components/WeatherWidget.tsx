@@ -41,12 +41,12 @@ const WeatherWidget = ({ city }: Props) => {
     fetchWeather();
   }, [city]);
 
-  if (loading) return <div className="text-center p-3">Loading weather...</div>;
-  if (error) return <div className="text-center p-3 text-danger">{error}</div>;
+  if (loading) return <div className="text-center p-3 h-100 d-flex align-items-center justify-content-center">Loading weather...</div>;
+  if (error) return <div className="text-center p-3 text-danger h-100 d-flex align-items-center justify-content-center">{error}</div>;
   if (!weather) return null;
 
   return (
-    <div className="weather-widget p-3 mb-4 text-center rounded shadow-sm" style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(5px)" }}>
+    <div className="weather-widget p-3 h-100 d-flex flex-column justify-content-center text-center rounded shadow-sm" style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(5px)" }}>
       <h5 className="mb-0 text-muted text-uppercase" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>Current Weather</h5>
       <div className="d-flex justify-content-center align-items-center mt-2">
         <span className="display-4 fw-bold text-dark">{weather.temperature}°C</span>
