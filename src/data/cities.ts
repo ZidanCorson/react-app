@@ -1,4 +1,4 @@
-export const items = ["New York", "San Francisco", "Tokyo", "Paris", "London", "Marrakech"];
+export const items = ["New York", "San Francisco", "Tokyo", "Paris", "London", "Marrakech", "Kyoto", "Casablanca"];
 
 export const cityImages: { [key: string]: string[] } = {
   "New York": [
@@ -29,7 +29,17 @@ export const cityImages: { [key: string]: string[] } = {
   "Marrakech": [
     "https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=300&h=200&fit=crop",
     "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=300&h=200&fit=crop",
-    "https://images.unsplash.com/photo-1553531889-e6cf4d692b1b?w=300&h=200&fit=crop"
+    "https://images.unsplash.com/photo-1548013146-72479768bada?w=300&h=200&fit=crop"
+  ],
+  "Kyoto": [
+    "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=300&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=300&h=200&fit=crop"
+  ],
+  "Casablanca": [
+    "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=300&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=300&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1577147443647-81856d5151af?w=300&h=200&fit=crop"
   ]
 };
 
@@ -39,7 +49,9 @@ export const citySuggestions: { [key: string]: string } = {
   "Tokyo": "Visit the Senso-ji Temple, cross the Shibuya Crossing, and explore Akihabara.",
   "Paris": "Visit the Eiffel Tower, explore the Louvre Museum, and walk along the Seine River.",
   "London": "Visit the British Museum, see the Tower of London, and ride the London Eye.",
-  "Marrakech": "Explore the Medina souks, visit the Majorelle Garden, and see the Koutoubia Mosque."
+  "Marrakech": "Explore the Medina souks, visit the Majorelle Garden, and see the Koutoubia Mosque.",
+  "Kyoto": "Walk through the Fushimi Inari Shrine, visit the Kinkaku-ji Golden Pavilion, and explore the Arashiyama Bamboo Grove.",
+  "Casablanca": "Visit the magnificent Hassan II Mosque, explore the Old Medina, and walk along the Corniche."
 };
 
 export const cityCoordinates: { [key: string]: { lat: number; lng: number } } = {
@@ -48,5 +60,7 @@ export const cityCoordinates: { [key: string]: { lat: number; lng: number } } = 
   "Tokyo": { lat: 35.6762, lng: 139.6503 },
   "Paris": { lat: 48.8566, lng: 2.3522 },
   "London": { lat: 51.5074, lng: -0.1278 },
-  "Marrakech": { lat: 31.6295, lng: -7.9811 }
+  "Marrakech": { lat: 31.6295, lng: -7.9811 },
+  "Kyoto": { lat: 35.0116, lng: 135.7681 },
+  "Casablanca": { lat: 33.5731, lng: -7.5898 }
 };
