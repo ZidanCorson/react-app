@@ -6,12 +6,13 @@ interface Props {
 }
 
 const CurrencyConverter = ({ city }: Props) => {
-  const [amount, setAmount] = useState<number>(1);
+  const [amount, setAmount] = useState<string>("1");
   const currency = cityCurrencies[city];
 
   if (!currency) return null;
 
-  const convertedAmount = (amount * currency.rate).toFixed(2);
+  const numericAmount = parseFloat(amount) || 0;
+  const convertedAmount = (numericAmount * currency.rate).toFixed(2);
 
   return (
     <div className="card shadow-sm h-100">
@@ -29,7 +30,7 @@ const CurrencyConverter = ({ city }: Props) => {
                 className="form-control"
                 id="usd-amount"
                 value={amount}
-                onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
+                onChange={(e) => setAmount(e.target.value)}
                 min="0"
               />
             </div>
