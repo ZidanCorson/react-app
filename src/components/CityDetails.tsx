@@ -1,5 +1,6 @@
 import Button from "./Button";
 import WeatherWidget from "./WeatherWidget";
+import CurrencyConverter from "./CurrencyConverter";
 import { cityImages, citySuggestions, cityCoordinates } from "../data/cities";
 
 interface Props {
@@ -35,8 +36,17 @@ const CityDetails = ({ selectedCity, onBack }: Props) => {
           </div>
         </div>
 
-        <div className="alert alert-info">
-          <strong>Travel Tip:</strong> {citySuggestions[selectedCity]}
+        <div className="row mb-4">
+          <div className="col-md-6">
+            <CurrencyConverter city={selectedCity} />
+          </div>
+          <div className="col-md-6">
+            <div className="alert alert-info h-100 d-flex align-items-center">
+              <div>
+                <strong>Travel Tip:</strong> {citySuggestions[selectedCity]}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="row mb-3">
           <div className="col-4">
