@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cityCurrencies } from "../data/cities";
 
 interface Props {
@@ -7,12 +7,40 @@ interface Props {
 
 const CurrencyConverter = ({ city }: Props) => {
   const [amount, setAmount] = useState<string>("1");
+  const [rate, setRate] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  
   const currency = cityCurrencies[city];
+
+  useEffect(() => {
+    if (!currency) return;
+
+    const fetchRate = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const response = await fetch("https://open.er-api.com/v6/latest/USD");
+        const data = await response.json();
+        if (data && data.rates && data.rates[currency.code]) {
+          setRate(data.rates[currency.code]);
+        } else {
+          setError("Rate not found");
+        }
+      } catch (err) {
+        setError("Failed to fetch rate");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRate();
+  }, [currency]);
 
   if (!currency) return null;
 
   const numericAmount = parseFloat(amount) || 0;
-  const convertedAmount = (numericAmount * currency.rate).toFixed(2);
+  const convertedAmount = rate ? (numericAmount * rate).toFixed(2) : "---";
 
   return (
     <div className="card shadow-sm h-100">
@@ -41,13 +69,23 @@ const CurrencyConverter = ({ city }: Props) => {
           </div>
 
           <div className="alert alert-light border text-center mb-0">
-            <div className="small text-muted">{currency.code}</div>
-            <div className="fs-4 fw-bold text-primary">
-              {currency.symbol}{convertedAmount}
-            </div>
-            <div className="small text-muted mt-1" style={{ fontSize: "0.7rem" }}>
-              1 USD = {currency.rate} {currency.code}
-            </div>
+            {loading ? (
+              <div className="spinner-border spinner-border-sm text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            ) : error ? (
+              <div className="text-danger small">{error}</div>
+            ) : (
+              <>
+                <div className="small text-muted">{currency.code}</div>
+                <div className="fs-4 fw-bold text-primary">
+                  {currency.symbol}{convertedAmount}
+                </div>
+                <div className="small text-muted mt-1" style={{ fontSize: "0.7rem" }}>
+                  1 USD = {rate} {currency.code}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

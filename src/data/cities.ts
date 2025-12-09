@@ -65,14 +65,14 @@ export const cityCoordinates: { [key: string]: { lat: number; lng: number } } = 
   "Casablanca": { lat: 33.5731, lng: -7.5898 }
 };
 
-export const cityCurrencies: { [key: string]: { code: string; rate: number; symbol: string } } = {
-  "New York": { code: "USD", rate: 1, symbol: "$" },
-  "San Francisco": { code: "USD", rate: 1, symbol: "$" },
-  "Tokyo": { code: "JPY", rate: 145.5, symbol: "¥" },
-  "Paris": { code: "EUR", rate: 0.92, symbol: "€" },
-  "London": { code: "GBP", rate: 0.79, symbol: "£" },
-  "Marrakech": { code: "MAD", rate: 10.1, symbol: "DH" },
-  "Kyoto": { code: "JPY", rate: 145.5, symbol: "¥" },
-  "Casablanca": { code: "MAD", rate: 10.1, symbol: "DH" }
+export const cityCurrencies: { [key: string]: { code: string; symbol: string } } = {
+  "New York": { code: "USD", symbol: "$" },
+  "San Francisco": { code: "USD", symbol: "$" },
+  "Tokyo": { code: "JPY", symbol: "¥" },
+  "Paris": { code: "EUR", symbol: "€" },
+  "London": { code: "GBP", symbol: "£" },
+  "Marrakech": { code: "MAD", symbol: "DH" },
+  "Kyoto": { code: "JPY", symbol: "¥" },
+  "Casablanca": { code: "MAD", symbol: "DH" }
 };
 
