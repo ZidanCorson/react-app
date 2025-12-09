@@ -1,6 +1,7 @@
 import Button from "./Button";
 import WeatherWidget from "./WeatherWidget";
 import CurrencyConverter from "./CurrencyConverter";
+import LocalTimeClock from "./LocalTimeClock";
 import { cityImages, citySuggestions, cityCoordinates } from "../data/cities";
 
 interface Props {
@@ -18,10 +19,13 @@ const CityDetails = ({ selectedCity, onBack }: Props) => {
         <p>Here are some great photos and travel tips for your trip to {selectedCity}!</p>
         
         <div className="row mb-4">
-          <div className="col-md-6">
+          <div className="col-md-4">
              <WeatherWidget city={selectedCity} />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
+             <LocalTimeClock city={selectedCity} />
+          </div>
+          <div className="col-md-4">
             {coords && (
               <div className="ratio ratio-16x9 h-100 shadow-sm rounded overflow-hidden" style={{ minHeight: '200px' }}>
                 <iframe
