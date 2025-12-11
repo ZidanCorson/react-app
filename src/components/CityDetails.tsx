@@ -3,6 +3,7 @@ import WeatherWidget from "./WeatherWidget";
 import CurrencyConverter from "./CurrencyConverter";
 import LocalTimeClock from "./LocalTimeClock";
 import LocalPhrasebook from "./LocalPhrasebook";
+import SmartPackingList from "./SmartPackingList";
 import { cityImages, citySuggestions, cityCoordinates } from "../data/cities";
 
 interface Props {
@@ -49,12 +50,12 @@ const CityDetails = ({ selectedCity, onBack }: Props) => {
             <LocalPhrasebook city={selectedCity} />
           </div>
           <div className="col-md-4">
-            <div className="alert alert-info h-100 d-flex align-items-center">
-              <div>
-                <strong>Travel Tip:</strong> {citySuggestions[selectedCity]}
-              </div>
-            </div>
+            <SmartPackingList city={selectedCity} />
           </div>
+        </div>
+
+        <div className="alert alert-info mb-4">
+          <strong>Travel Tip:</strong> {citySuggestions[selectedCity]}
         </div>
         <div className="row mb-3">
           <div className="col-4">
