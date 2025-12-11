@@ -25,6 +25,13 @@ function App() {
     }
   };
 
+  const handleSurpriseMe = () => {
+    const randomCity = items[Math.floor(Math.random() * items.length)];
+    setSelectedCity(randomCity);
+    setAlertVisible(true);
+    setView("details");
+  };
+
   return ( 
     <div className="app-overlay">
       <div className="container">
@@ -48,6 +55,10 @@ function App() {
                 </div>
                 <div className="text-center">
                   <Button color="success" onClick={handleButtonClick}>Explore City</Button> 
+                  <span className="mx-2"></span>
+                  <Button color="light" className="btn-surprise" onClick={handleSurpriseMe}>
+                    <i className="bi bi-stars me-2"></i>Surprise Me!
+                  </Button>
                 </div>
               </>
             )}

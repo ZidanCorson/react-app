@@ -81,7 +81,8 @@ h1 {
 .btn-success {
   background-color: #c0392b !important;
   border: none !important;
-  padding: 12px 40px !important;
+  padding: 12px 20px !important;
+  min-width: 220px;
   font-size: 1.1rem !important;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -132,4 +133,32 @@ h2 {
 .img-fluid:hover {
   transform: scale(1.03);
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.btn-surprise {
+  background: linear-gradient(45deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: bold;
+  padding: 12px 20px !important;
+  min-width: 220px;
+  border-radius: 50px !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  background-size: 200% auto !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  font-size: 1.1rem !important;
+}
+
+.btn-surprise:hover {
+  background-position: right center !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  color: white !important;
+}
+
+.btn-surprise:active {
+  transform: translateY(1px);
 }
