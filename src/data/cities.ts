@@ -76,3 +76,42 @@ export const cityCurrencies: { [key: string]: { code: string; symbol: string } }
   "Casablanca": { code: "MAD", symbol: "DH" }
 };
 
+export const cityLanguages: { [key: string]: string } = {
+  "New York": "en-US",
+  "San Francisco": "en-US",
+  "Tokyo": "ja-JP",
+  "Paris": "fr-FR",
+  "London": "en-GB",
+  "Marrakech": "ar-MA",
+  "Kyoto": "ja-JP",
+  "Casablanca": "ar-MA"
+};
+
+export const languagePhrases: { [key: string]: { phrase: string; translation: string; pronunciation?: string }[] } = {
+  "en-US": [
+    { phrase: "Hello", translation: "Hello" },
+    { phrase: "Thank you", translation: "Thank you" },
+    { phrase: "How much?", translation: "How much?" }
+  ],
+  "en-GB": [
+    { phrase: "Hello", translation: "Hello" },
+    { phrase: "Thank you", translation: "Thank you" },
+    { phrase: "How much?", translation: "How much?" }
+  ],
+  "ja-JP": [
+    { phrase: "Hello", translation: "Konnichiwa", pronunciation: "Konnichiwa" },
+    { phrase: "Thank you", translation: "Arigato", pronunciation: "Arigato" },
+    { phrase: "How much?", translation: "Ikura desu ka?", pronunciation: "Ikura desu ka?" }
+  ],
+  "fr-FR": [
+    { phrase: "Hello", translation: "Bonjour", pronunciation: "Bonjour" },
+    { phrase: "Thank you", translation: "Merci", pronunciation: "Merci" },
+    { phrase: "How much?", translation: "Combien ça coûte ?", pronunciation: "Combien sa coot?" }
+  ],
+  "ar-MA": [
+    { phrase: "Hello", translation: "Salam", pronunciation: "Salam" },
+    { phrase: "Thank you", translation: "Choukran", pronunciation: "Shokran" },
+    { phrase: "How much?", translation: "Bchhal?", pronunciation: "Bish-hal?" }
+  ]
+};
+
