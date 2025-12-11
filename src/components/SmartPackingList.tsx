@@ -1,43 +1,11 @@
-import { useEffect, useState } from "react";
-import { cityCoordinates } from "../data/cities";
+import { useWeather } from "../hooks/useWeather";
 
 interface Props {
   city: string;
 }
 
-interface WeatherData {
-  temperature: number;
-  weatherCode: number;
-}
-
 const SmartPackingList = ({ city }: Props) => {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchWeather = async () => {
-      const coords = cityCoordinates[city];
-      if (!coords) return;
-
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lng}&current_weather=true`
-        );
-        const data = await response.json();
-        setWeather({
-          temperature: data.current_weather.temperature,
-          weatherCode: data.current_weather.weathercode,
-        });
-      } catch (err) {
-        console.error("Failed to load weather for packing list");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWeather();
-  }, [city]);
+  const { weather, loading } = useWeather(city);
 
   if (loading || !weather) return null;
 
@@ -51,6 +19,10 @@ const SmartPackingList = ({ city }: Props) => {
     else items.push("Heavy coat", "Scarf", "Gloves", "Thermal wear");
 
     // Weather condition based
+    // Fog: 45-48
+    if (code >= 45 && code <= 48) {
+      items.push("Reflective gear", "Flashlight");
+    }
     // Rain: 51-67, 80-82
     if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) {
       items.push("Umbrella", "Raincoat", "Waterproof shoes");
