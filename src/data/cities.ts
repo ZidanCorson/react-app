@@ -1,4 +1,4 @@
-export const items = ["New York", "San Francisco", "Tokyo", "Paris", "London", "Marrakech", "Kyoto", "Casablanca"];
+export const items = ["New York", "San Francisco", "Tokyo", "Paris", "London", "Marrakech", "Kyoto", "Casablanca", "Beijing"];
 
 export const cityImages: { [key: string]: string[] } = {
   "New York": [
@@ -40,6 +40,11 @@ export const cityImages: { [key: string]: string[] } = {
     "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=300&h=200&fit=crop",
     "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=300&h=200&fit=crop",
     "https://images.unsplash.com/photo-1577147443647-81856d5151af?w=300&h=200&fit=crop"
+  ],
+  "Beijing": [
+    "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=300&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=300&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1599571234909-29ed5d1321d6?w=300&h=200&fit=crop"
   ]
 };
 
@@ -51,7 +56,8 @@ export const citySuggestions: { [key: string]: string } = {
   "London": "Visit the British Museum, see the Tower of London, and ride the London Eye.",
   "Marrakech": "Explore the Medina souks, visit the Majorelle Garden, and see the Koutoubia Mosque.",
   "Kyoto": "Walk through the Fushimi Inari Shrine, visit the Kinkaku-ji Golden Pavilion, and explore the Arashiyama Bamboo Grove.",
-  "Casablanca": "Visit the magnificent Hassan II Mosque, explore the Old Medina, and walk along the Corniche."
+  "Casablanca": "Visit the magnificent Hassan II Mosque, explore the Old Medina, and walk along the Corniche.",
+  "Beijing": "Walk the Great Wall, explore the Forbidden City, and visit the Temple of Heaven."
 };
 
 export const cityCoordinates: { [key: string]: { lat: number; lng: number } } = {
@@ -62,7 +68,8 @@ export const cityCoordinates: { [key: string]: { lat: number; lng: number } } = 
   "London": { lat: 51.5074, lng: -0.1278 },
   "Marrakech": { lat: 31.6295, lng: -7.9811 },
   "Kyoto": { lat: 35.0116, lng: 135.7681 },
-  "Casablanca": { lat: 33.5731, lng: -7.5898 }
+  "Casablanca": { lat: 33.5731, lng: -7.5898 },
+  "Beijing": { lat: 39.9042, lng: 116.4074 }
 };
 
 export const cityCurrencies: { [key: string]: { code: string; symbol: string } } = {
@@ -73,7 +80,8 @@ export const cityCurrencies: { [key: string]: { code: string; symbol: string } }
   "London": { code: "GBP", symbol: "£" },
   "Marrakech": { code: "MAD", symbol: "DH" },
   "Kyoto": { code: "JPY", symbol: "¥" },
-  "Casablanca": { code: "MAD", symbol: "DH" }
+  "Casablanca": { code: "MAD", symbol: "DH" },
+  "Beijing": { code: "CNY", symbol: "¥" }
 };
 
 export const cityLanguages: { [key: string]: string } = {
@@ -84,7 +92,8 @@ export const cityLanguages: { [key: string]: string } = {
   "London": "en-GB",
   "Marrakech": "ar-MA",
   "Kyoto": "ja-JP",
-  "Casablanca": "ar-MA"
+  "Casablanca": "ar-MA",
+  "Beijing": "zh-CN"
 };
 
 export const languagePhrases: { [key: string]: { phrase: string; translation: string; pronunciation?: string }[] } = {
@@ -112,6 +121,11 @@ export const languagePhrases: { [key: string]: { phrase: string; translation: st
     { phrase: "Hello", translation: "Salam", pronunciation: "Salam" },
     { phrase: "Thank you", translation: "Choukran", pronunciation: "Shokran" },
     { phrase: "How much?", translation: "Bchhal?", pronunciation: "Bish-hal?" }
+  ],
+  "zh-CN": [
+    { phrase: "Hello", translation: "Ni hao", pronunciation: "Nee how" },
+    { phrase: "Thank you", translation: "Xie xie", pronunciation: "Shieh shieh" },
+    { phrase: "How much?", translation: "Duo shao qian?", pronunciation: "Dwo shao chyen?" }
   ]
 };
 
