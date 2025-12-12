@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useWeather } from "../hooks/useWeather";
 
 interface Props {
@@ -8,6 +8,26 @@ interface Props {
 const SmartPackingList = ({ city }: Props) => {
   const { weather, loading } = useWeather(city);
   const [packedItems, setPackedItems] = useState<Set<string>>(new Set());
+
+  // Load saved items when city changes
+  useEffect(() => {
+    const saved = localStorage.getItem(`packing-list-${city}`);
+    if (saved) {
+      try {
+        setPackedItems(new Set(JSON.parse(saved)));
+      } catch (e) {
+        console.error("Failed to parse packed items", e);
+        setPackedItems(new Set());
+      }
+    } else {
+      setPackedItems(new Set());
+    }
+  }, [city]);
+
+  // Save items whenever they change
+  useEffect(() => {
+    localStorage.setItem(`packing-list-${city}`, JSON.stringify([...packedItems]));
+  }, [packedItems, city]);
 
   if (loading || !weather) return null;
 
@@ -46,6 +66,7 @@ const SmartPackingList = ({ city }: Props) => {
   };
 
   const suggestions = getSuggestions(weather.temperature, weather.weatherCode);
+  const progress = Math.round((packedItems.size / suggestions.length) * 100) || 0;
 
   const toggleItem = (item: string) => {
     const newPacked = new Set(packedItems);
@@ -61,9 +82,21 @@ const SmartPackingList = ({ city }: Props) => {
     <div className="card shadow-sm h-100">
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <h5 className="card-title text-muted text-uppercase mb-0" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
-            Smart Packing List
-          </h5>
+          <div>
+            <h5 className="card-title text-muted text-uppercase mb-1" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+              Smart Packing List
+            </h5>
+            <div className="progress" style={{ height: "6px", width: "120px" }}>
+              <div
+                className="progress-bar bg-success"
+                role="progressbar"
+                style={{ width: `${progress}%`, transition: "width 0.3s ease" }}
+                aria-valuenow={progress}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              ></div>
+            </div>
+          </div>
           <span className="badge bg-light text-dark border">
             {packedItems.size} / {suggestions.length}
           </span>
