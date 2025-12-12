@@ -47,6 +47,11 @@ h1 {
   overflow: hidden;
 }
 
+.city-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
+}
+
 .card-body {
   padding: 2rem !important;
 }
