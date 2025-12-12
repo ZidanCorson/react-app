@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useWeather } from "../hooks/useWeather";
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 
 const SmartPackingList = ({ city }: Props) => {
   const { weather, loading } = useWeather(city);
+  const [packedItems, setPackedItems] = useState<Set<string>>(new Set());
 
   if (loading || !weather) return null;
 
@@ -45,19 +47,48 @@ const SmartPackingList = ({ city }: Props) => {
 
   const suggestions = getSuggestions(weather.temperature, weather.weatherCode);
 
+  const toggleItem = (item: string) => {
+    const newPacked = new Set(packedItems);
+    if (newPacked.has(item)) {
+      newPacked.delete(item);
+    } else {
+      newPacked.add(item);
+    }
+    setPackedItems(newPacked);
+  };
+
   return (
     <div className="card shadow-sm h-100">
       <div className="card-body">
-        <h5 className="card-title text-muted text-uppercase mb-3" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
-          Smart Packing List
-        </h5>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h5 className="card-title text-muted text-uppercase mb-0" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+            Smart Packing List
+          </h5>
+          <span className="badge bg-light text-dark border">
+            {packedItems.size} / {suggestions.length}
+          </span>
+        </div>
         <ul className="list-group list-group-flush">
-          {suggestions.map((item, index) => (
-            <li key={index} className="list-group-item px-0 py-1 d-flex align-items-center border-0">
-              <i className="bi bi-check2-circle text-success me-2"></i>
-              {item}
-            </li>
-          ))}
+          {suggestions.map((item, index) => {
+            const isPacked = packedItems.has(item);
+            return (
+              <li
+                key={index}
+                className="list-group-item px-0 py-2 d-flex align-items-center border-0"
+                onClick={() => toggleItem(item)}
+                style={{ cursor: "pointer", userSelect: "none" }}
+              >
+                <i
+                  className={`bi ${
+                    isPacked ? "bi-check-circle-fill text-success" : "bi-circle text-secondary"
+                  } me-2 fs-5`}
+                ></i>
+                <span className={isPacked ? "text-decoration-line-through text-muted" : ""}>
+                  {item}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
