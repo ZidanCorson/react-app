@@ -5,6 +5,7 @@ import LocalTimeClock from "./LocalTimeClock";
 import LocalPhrasebook from "./LocalPhrasebook";
 import SmartPackingList from "./SmartPackingList";
 import TripBudgetEstimator from "./TripBudgetEstimator";
+import DailyItinerary from "./DailyItinerary";
 import { cityImages, citySuggestions, cityCoordinates } from "../data/cities";
 
 interface Props {
@@ -49,6 +50,12 @@ const CityDetails = ({ selectedCity, onBack }: Props) => {
           </div>
           <div className="col-md-6">
             <TripBudgetEstimator city={selectedCity} />
+          </div>
+        </div>
+
+        <div className="row mb-4">
+          <div className="col-12">
+            <DailyItinerary city={selectedCity} />
           </div>
         </div>
 

@@ -141,3 +141,51 @@ export const cityCostMultipliers: { [key: string]: number } = {
   "Beijing": 0.9
 };
 
+export const cityItineraries: { [key: string]: { day: number; title: string; activities: string[] }[] } = {
+  "New York": [
+    { day: 1, title: "Iconic Sights", activities: ["Statue of Liberty morning tour", "Walk the High Line", "Sunset at Top of the Rock"] },
+    { day: 2, title: "Culture & Arts", activities: ["Metropolitan Museum of Art", "Lunch in Central Park", "Broadway Show in the evening"] },
+    { day: 3, title: "Urban Exploration", activities: ["Explore SoHo boutiques", "Walk across Brooklyn Bridge", "Dinner in DUMBO"] }
+  ],
+  "San Francisco": [
+    { day: 1, title: "Bay Area Classics", activities: ["Ride the Cable Cars", "Fisherman's Wharf & Pier 39", "Alcatraz Night Tour"] },
+    { day: 2, title: "Nature & Views", activities: ["Golden Gate Bridge walk", "Muir Woods Redwoods", "Sausalito ferry ride"] },
+    { day: 3, title: "City Vibes", activities: ["Explore Chinatown", "Mission District murals", "Twin Peaks sunset"] }
+  ],
+  "Tokyo": [
+    { day: 1, title: "Old & New", activities: ["Senso-ji Temple in Asakusa", "Tokyo Skytree views", "Dinner in Shinjuku"] },
+    { day: 2, title: "Pop Culture", activities: ["Harajuku fashion street", "Meiji Shrine", "Shibuya Crossing & Hachiko"] },
+    { day: 3, title: "Tech & Art", activities: ["TeamLab Borderless", "Akihabara electronics", "Sushi in Tsukiji Outer Market"] }
+  ],
+  "Paris": [
+    { day: 1, title: "The Classics", activities: ["Eiffel Tower summit", "Seine River Cruise", "Louvre Museum highlights"] },
+    { day: 2, title: "Artistic Soul", activities: ["Montmartre & Sacré-Cœur", "Musée d'Orsay", "Latin Quarter cafes"] },
+    { day: 3, title: "Royal Paris", activities: ["Palace of Versailles day trip", "Shopping on Champs-Élysées", "Arc de Triomphe"] }
+  ],
+  "London": [
+    { day: 1, title: "Royal London", activities: ["Buckingham Palace Changing of the Guard", "Westminster Abbey", "London Eye"] },
+    { day: 2, title: "History & Markets", activities: ["Tower of London", "Borough Market lunch", "Tate Modern"] },
+    { day: 3, title: "Museums & Parks", activities: ["British Museum", "Covent Garden street performers", "Afternoon Tea at The Ritz"] }
+  ],
+  "Marrakech": [
+    { day: 1, title: "Medina Magic", activities: ["Jemaa el-Fnaa square", "Koutoubia Mosque", "Souk shopping"] },
+    { day: 2, title: "Gardens & Palaces", activities: ["Majorelle Garden", "Bahia Palace", "Yves Saint Laurent Museum"] },
+    { day: 3, title: "Desert & Spa", activities: ["Atlas Mountains day trip", "Traditional Hammam spa", "Rooftop dinner"] }
+  ],
+  "Kyoto": [
+    { day: 1, title: "Temple Trail", activities: ["Kinkaku-ji (Golden Pavilion)", "Ryoan-ji Rock Garden", "Arashiyama Bamboo Grove"] },
+    { day: 2, title: "Historic Streets", activities: ["Fushimi Inari Shrine hike", "Kiyomizu-dera Temple", "Gion district geisha spotting"] },
+    { day: 3, title: "Zen & Tea", activities: ["Nijo Castle", "Philosopher's Path", "Traditional Tea Ceremony"] }
+  ],
+  "Casablanca": [
+    { day: 1, title: "Architectural Wonders", activities: ["Hassan II Mosque tour", "Rick's Café lunch", "Corniche seaside walk"] },
+    { day: 2, title: "City Life", activities: ["Place Mohammed V", "Old Medina exploration", "Morocco Mall shopping"] },
+    { day: 3, title: "Day Trip", activities: ["Trip to Rabat (Capital)", "Chellah Necropolis", "Kasbah of the Udayas"] }
+  ],
+  "Beijing": [
+    { day: 1, title: "Imperial History", activities: ["Forbidden City", "Tiananmen Square", "Jingshan Park views"] },
+    { day: 2, title: "The Great Wall", activities: ["Mutianyu Great Wall hike", "Ming Tombs", "Peking Duck dinner"] },
+    { day: 3, title: "Culture & Temples", activities: ["Temple of Heaven", "Summer Palace", "Hutong rickshaw tour"] }
+  ]
+};
+
