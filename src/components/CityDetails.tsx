@@ -4,6 +4,7 @@ import CurrencyConverter from "./CurrencyConverter";
 import LocalTimeClock from "./LocalTimeClock";
 import LocalPhrasebook from "./LocalPhrasebook";
 import SmartPackingList from "./SmartPackingList";
+import TripBudgetEstimator from "./TripBudgetEstimator";
 import { cityImages, citySuggestions, cityCoordinates } from "../data/cities";
 
 interface Props {
@@ -43,13 +44,19 @@ const CityDetails = ({ selectedCity, onBack }: Props) => {
         </div>
 
         <div className="row mb-4">
-          <div className="col-md-4">
+          <div className="col-md-6">
             <CurrencyConverter city={selectedCity} />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-6">
+            <TripBudgetEstimator city={selectedCity} />
+          </div>
+        </div>
+
+        <div className="row mb-4">
+          <div className="col-md-6">
             <LocalPhrasebook city={selectedCity} />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <SmartPackingList city={selectedCity} />
           </div>
         </div>

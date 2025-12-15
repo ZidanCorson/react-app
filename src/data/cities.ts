@@ -129,3 +129,15 @@ export const languagePhrases: { [key: string]: { phrase: string; translation: st
   ]
 };
 
+export const cityCostMultipliers: { [key: string]: number } = {
+  "New York": 1.8,
+  "San Francisco": 1.7,
+  "Tokyo": 1.5,
+  "Paris": 1.4,
+  "London": 1.6,
+  "Marrakech": 0.7,
+  "Kyoto": 1.3,
+  "Casablanca": 0.6,
+  "Beijing": 0.9
+};
+
