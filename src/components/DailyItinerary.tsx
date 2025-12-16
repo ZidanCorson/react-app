@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cityItineraries } from "../data/cities";
 
 interface Props {
@@ -9,11 +9,29 @@ const DailyItinerary = ({ city }: Props) => {
   const itinerary = cityItineraries[city];
   // State to track which accordion item is open. Default to 0 (first day).
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  // State to track selected activities
+  const [selectedActivities, setSelectedActivities] = useState<Set<string>>(new Set());
+
+  // Reset selections when city changes
+  useEffect(() => {
+    setSelectedActivities(new Set());
+  }, [city]);
 
   if (!itinerary) return null;
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
+  };
+
+  const toggleActivity = (day: number, activityIndex: number) => {
+    const id = `${day}-${activityIndex}`;
+    const newSelected = new Set(selectedActivities);
+    if (newSelected.has(id)) {
+      newSelected.delete(id);
+    } else {
+      newSelected.add(id);
+    }
+    setSelectedActivities(newSelected);
   };
 
   return (
@@ -48,12 +66,20 @@ const DailyItinerary = ({ city }: Props) => {
                 >
                   <div className="accordion-body bg-white">
                     <ul className="list-group list-group-flush">
-                      {dayPlan.activities.map((activity, i) => (
-                        <li key={i} className="list-group-item px-0 py-2 border-0 d-flex align-items-center">
-                          <i className="bi bi-check-circle-fill text-success me-3"></i>
-                          {activity}
-                        </li>
-                      ))}
+                      {dayPlan.activities.map((activity, i) => {
+                        const isSelected = selectedActivities.has(`${dayPlan.day}-${i}`);
+                        return (
+                          <li 
+                            key={i} 
+                            className="list-group-item px-0 py-2 border-0 d-flex align-items-center"
+                            onClick={() => toggleActivity(dayPlan.day, i)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            <i className={`bi ${isSelected ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted'} me-3 fs-5`}></i>
+                            <span className={isSelected ? "text-dark fw-medium" : "text-muted"}>{activity}</span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
