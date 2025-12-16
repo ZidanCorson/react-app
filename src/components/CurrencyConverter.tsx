@@ -46,6 +46,7 @@ const CurrencyConverter = ({ city }: Props) => {
     <div className="card shadow-sm h-100">
       <div className="card-body">
         <h5 className="card-title text-muted text-uppercase" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+          <i className="bi bi-currency-exchange me-2 text-success"></i>
           Currency Converter
         </h5>
         <div className="mt-3">

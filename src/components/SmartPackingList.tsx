@@ -122,6 +122,7 @@ const SmartPackingList = ({ city }: Props) => {
         <div className="d-flex justify-content-between align-items-center mb-3">
           <div>
             <h5 className="card-title text-muted text-uppercase mb-1" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+              <i className="bi bi-suitcase-lg-fill me-2 text-primary"></i>
               Smart Packing List
             </h5>
             <div className="progress" style={{ height: "6px", width: "120px" }}>

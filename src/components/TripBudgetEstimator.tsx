@@ -31,6 +31,7 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
     <div className="card shadow-sm h-100">
       <div className="card-body">
         <h5 className="card-title text-muted text-uppercase" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+          <i className="bi bi-wallet2 me-2 text-warning"></i>
           Trip Budget Estimator
         </h5>
         <h3 className="card-text text-primary mb-4" style={{ color: "#2c3e50" }}>

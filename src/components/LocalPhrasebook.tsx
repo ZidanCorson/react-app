@@ -40,6 +40,7 @@ const LocalPhrasebook = ({ city }: Props) => {
           className="card-title text-muted text-uppercase mb-3"
           style={{ fontSize: "0.9rem", letterSpacing: "1px" }}
         >
+          <i className="bi bi-translate me-2 text-info"></i>
           Local Phrasebook ({languageNames[languageCode] || languageCode})
         </h5>
         <div className="list-group list-group-flush">
