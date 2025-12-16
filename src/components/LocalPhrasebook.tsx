@@ -47,9 +47,9 @@ const LocalPhrasebook = ({ city }: Props) => {
           {phrases.map((item, index) => (
             <div
               key={index}
-              className="list-group-item px-0 py-2 d-flex justify-content-between align-items-center"
+              className="list-group-item px-0 py-3 d-flex justify-content-between align-items-center"
             >
-              <div className="me-2">
+              <div className="me-3 flex-grow-1">
                 <span className="fw-bold text-primary d-block">
                   {item.phrase}
                 </span>
@@ -64,20 +64,22 @@ const LocalPhrasebook = ({ city }: Props) => {
                     </div>
                   )}
               </div>
-              <div className="d-flex gap-2">
+              <div className="d-flex gap-2 flex-shrink-0">
                 <button
-                  className="btn btn-sm btn-outline-secondary"
+                  className="btn btn-sm btn-outline-secondary rounded-circle"
+                  style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center" }}
                   onClick={() => handleSpeak(item.translation)}
                   title="Listen"
                 >
-                  🔊
+                  <i className="bi bi-volume-up"></i>
                 </button>
                 <button
-                  className="btn btn-sm btn-outline-secondary"
+                  className="btn btn-sm btn-outline-secondary rounded-circle"
+                  style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center" }}
                   onClick={() => handleCopy(item.translation)}
                   title="Copy"
                 >
-                  📋
+                  <i className="bi bi-clipboard"></i>
                 </button>
               </div>
             </div>
