@@ -228,3 +228,26 @@ h2 {
 .btn-share-luxury:active {
   transform: translateY(1px);
 }
+
+.btn-back-luxury {
+  background-color: transparent !important;
+  color: #2c3e50 !important;
+  border: 2px solid #2c3e50 !important;
+  padding: 12px 35px;
+  border-radius: 50px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.btn-back-luxury:hover {
+  background-color: #2c3e50 !important;
+  color: #d4af37 !important; /* Gold text on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+}

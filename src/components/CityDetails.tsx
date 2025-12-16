@@ -133,7 +133,13 @@ Check out this trip on Luxury Travel Selector!
             <img src={cityImages[selectedCity]?.[2]} className="img-fluid rounded shadow-sm" alt={`${selectedCity} view 3`} />
           </div>
         </div>
-        <Button color="primary" onClick={onBack}>Back to List</Button>
+        
+        <div className="text-center mt-5">
+          <button className="btn-back-luxury" onClick={onBack}>
+            <i className="bi bi-arrow-left"></i>
+            Back to Destinations
+          </button>
+        </div>
       </div>
     </div>
   );
