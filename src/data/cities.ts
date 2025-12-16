@@ -189,3 +189,51 @@ export const cityItineraries: { [key: string]: { day: number; title: string; act
   ]
 };
 
+export const cityCuisine: { [key: string]: { dish: string; description: string }[] } = {
+  "New York": [
+    { dish: "New York Style Pizza", description: "Large, hand-tossed thin crust, often sold in wide slices to go." },
+    { dish: "Bagel with Lox", description: "A boiled-then-baked ring of dough, dense and chewy, topped with cream cheese and cured salmon." },
+    { dish: "Cheesecake", description: "Rich, dense, and smooth dessert made with cream cheese, eggs, and sugar." }
+  ],
+  "San Francisco": [
+    { dish: "Clam Chowder in Sourdough", description: "Creamy soup with clams served in a hollowed-out loaf of famous SF sourdough bread." },
+    { dish: "Mission Burrito", description: "A large tortilla wrapped around rice, beans, meat, salsa, and more." },
+    { dish: "Dungeness Crab", description: "Sweet, tender crab meat, often served steamed or roasted with garlic." }
+  ],
+  "Tokyo": [
+    { dish: "Sushi", description: "Vinegared rice accompanied by a variety of ingredients, such as seafood and vegetables." },
+    { dish: "Ramen", description: "Wheat noodles served in a meat or fish-based broth, often flavored with soy sauce or miso." },
+    { dish: "Tempura", description: "Seafood or vegetables that have been battered and deep fried." }
+  ],
+  "Paris": [
+    { dish: "Croissant", description: "Buttery, flaky, viennoiserie pastry of Austrian origin, named for its historical crescent shape." },
+    { dish: "Escargots de Bourgogne", description: "Land snails cooked with garlic butter, chicken stock or wine." },
+    { dish: "Macarons", description: "Sweet meringue-based confection made with egg white, icing sugar, granulated sugar, almond meal, and food colouring." }
+  ],
+  "London": [
+    { dish: "Fish and Chips", description: "Hot dish consisting of fried fish in batter, served with chips." },
+    { dish: "Sunday Roast", description: "Traditional British main meal that is typically served on Sunday, consisting of roasted meat, roast potato, and accompaniments." },
+    { dish: "Chicken Tikka Masala", description: "Chunks of roasted marinated chicken (chicken tikka) in a spiced curry sauce." }
+  ],
+  "Marrakech": [
+    { dish: "Tagine", description: "Slow-cooked savory stew made with sliced meat, poultry or fish together with vegetables or fruit." },
+    { dish: "Couscous", description: "Small steamed balls of crushed durum wheat semolina that is traditionally served with a stew spooned on top." },
+    { dish: "Mint Tea", description: "Green tea prepared with spearmint leaves and sugar, traditional to the Maghreb region." }
+  ],
+  "Kyoto": [
+    { dish: "Kaiseki Ryori", description: "Traditional multi-course Japanese dinner." },
+    { dish: "Yudofu", description: "Tofu simmered in hot water with vegetables." },
+    { dish: "Matcha Sweets", description: "Desserts flavored with finely ground powder of specially grown and processed green tea leaves." }
+  ],
+  "Casablanca": [
+    { dish: "Seafood Bastilla", description: "A savory pie made with warqa dough, filled with seafood and vermicelli." },
+    { dish: "Grilled Sardines", description: "Fresh sardines grilled with chermoula spices." },
+    { dish: "Moroccan Pastries", description: "Sweet treats made with almonds, honey, and orange blossom water." }
+  ],
+  "Beijing": [
+    { dish: "Peking Duck", description: "Dish from Beijing that has been prepared since the imperial era. The meat is characterized by its thin, crisp skin." },
+    { dish: "Jiaozi (Dumplings)", description: "Ground meat and/or vegetable filling wrapped into a thinly rolled piece of dough." },
+    { dish: "Zhajiangmian", description: "Noodles topped with a thick sauce made of fried pork and fermented soybean paste." }
+  ]
+};
+

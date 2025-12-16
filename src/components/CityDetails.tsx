@@ -7,6 +7,7 @@ import LocalPhrasebook from "./LocalPhrasebook";
 import SmartPackingList from "./SmartPackingList";
 import TripBudgetEstimator from "./TripBudgetEstimator";
 import DailyItinerary from "./DailyItinerary";
+import LocalCuisineGuide from "./LocalCuisineGuide";
 import { cityImages, citySuggestions, cityCoordinates, cityItineraries } from "../data/cities";
 
 interface Props {
@@ -107,10 +108,13 @@ Check out this trip on Luxury Travel Selector!
         </div>
 
         <div className="row mb-4">
-          <div className="col-md-6">
+          <div className="col-md-4">
             <LocalPhrasebook city={selectedCity} />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
+            <LocalCuisineGuide city={selectedCity} />
+          </div>
+          <div className="col-md-4">
             <SmartPackingList city={selectedCity} />
           </div>
         </div>
