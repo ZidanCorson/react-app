@@ -20,6 +20,7 @@ const DailyItinerary = ({ city }: Props) => {
     <div className="card shadow-sm h-100">
       <div className="card-body">
         <h5 className="card-title text-muted text-uppercase mb-4" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+          <i className="bi bi-calendar-week-fill me-2" style={{ color: "#6f42c1" }}></i>
           3-Day Perfect Itinerary
         </h5>
         
