@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "./Button";
 import WeatherWidget from "./WeatherWidget";
 import CurrencyConverter from "./CurrencyConverter";
@@ -6,7 +7,7 @@ import LocalPhrasebook from "./LocalPhrasebook";
 import SmartPackingList from "./SmartPackingList";
 import TripBudgetEstimator from "./TripBudgetEstimator";
 import DailyItinerary from "./DailyItinerary";
-import { cityImages, citySuggestions, cityCoordinates } from "../data/cities";
+import { cityImages, citySuggestions, cityCoordinates, cityItineraries } from "../data/cities";
 
 interface Props {
   selectedCity: string;
@@ -15,12 +16,58 @@ interface Props {
 
 const CityDetails = ({ selectedCity, onBack }: Props) => {
   const coords = cityCoordinates[selectedCity];
+  const [estimatedCost, setEstimatedCost] = useState(0);
+  const [showShareToast, setShowShareToast] = useState(false);
+
+  const handleShare = () => {
+    const itinerary = cityItineraries[selectedCity];
+    const activities = itinerary 
+      ? itinerary.map(day => `- Day ${day.day}: ${day.title} (${day.activities.join(", ")})`).join("\n")
+      : "Explore the city!";
+
+    const summary = `
+✈️ Trip to ${selectedCity}
+💰 Estimated Budget: $${Math.round(estimatedCost).toLocaleString()}
+
+🌟 Top Activities:
+${activities}
+
+Check out this trip on Luxury Travel Selector!
+    `.trim();
+
+    navigator.clipboard.writeText(summary).then(() => {
+      setShowShareToast(true);
+      setTimeout(() => setShowShareToast(false), 3000);
+    });
+  };
 
   return (
-    <div className="card shadow-sm mb-4">
+    <div className="card shadow-sm mb-4 position-relative">
+      {showShareToast && (
+        <div 
+          className="position-fixed top-0 start-50 translate-middle-x mt-4 p-3 bg-success text-white rounded shadow" 
+          style={{ zIndex: 1050, transition: "opacity 0.5s" }}
+        >
+          <i className="bi bi-check-circle-fill me-2"></i>
+          Trip summary copied to clipboard!
+        </div>
+      )}
+
       <div className="card-body">
-        <h2>Photos and Advice for {selectedCity}</h2>
-        <p>Here are some great photos and travel tips for your trip to {selectedCity}!</p>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h2>Photos and Advice for {selectedCity}</h2>
+            <p className="mb-0">Here are some great photos and travel tips for your trip to {selectedCity}!</p>
+          </div>
+          <button 
+            className="btn-share-luxury" 
+            onClick={handleShare}
+            title="Share Trip Summary"
+          >
+            <i className="bi bi-share-fill me-2"></i>
+            Share Trip
+          </button>
+        </div>
         
         <div className="row mb-4">
           <div className="col-md-4">
@@ -49,7 +96,7 @@ const CityDetails = ({ selectedCity, onBack }: Props) => {
             <CurrencyConverter city={selectedCity} />
           </div>
           <div className="col-md-6">
-            <TripBudgetEstimator city={selectedCity} />
+            <TripBudgetEstimator city={selectedCity} onCostChange={setEstimatedCost} />
           </div>
         </div>
 

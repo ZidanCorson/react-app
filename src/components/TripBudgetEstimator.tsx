@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cityCostMultipliers } from "../data/cities";
 
 interface Props {
   city: string;
+  onCostChange?: (cost: number) => void;
 }
 
-const TripBudgetEstimator = ({ city }: Props) => {
+const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
   const [travelers, setTravelers] = useState(1);
   const [days, setDays] = useState(3);
   const [style, setStyle] = useState<"Budget" | "Standard" | "Luxury">("Standard");
@@ -19,6 +20,12 @@ const TripBudgetEstimator = ({ city }: Props) => {
   const multiplier = cityCostMultipliers[city] || 1;
   const dailyCost = baseRates[style] * multiplier;
   const totalCost = dailyCost * travelers * days;
+
+  useEffect(() => {
+    if (onCostChange) {
+      onCostChange(totalCost);
+    }
+  }, [totalCost, onCostChange]);
 
   return (
     <div className="card shadow-sm h-100">

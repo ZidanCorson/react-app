@@ -201,3 +201,30 @@ h2 {
 .text-gold {
   color: #d4af37 !important;
 }
+
+.btn-share-luxury {
+  background: linear-gradient(135deg, #134E5E 0%, #71B280 100%) !important; /* Deep Teal to Lush Green */
+  border: none !important;
+  color: white !important;
+  padding: 10px 25px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(19, 78, 94, 0.4);
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+.btn-share-luxury:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(19, 78, 94, 0.6);
+  background: linear-gradient(135deg, #1A6D82 0%, #85D196 100%) !important;
+}
+
+.btn-share-luxury:active {
+  transform: translateY(1px);
+}
