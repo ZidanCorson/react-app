@@ -65,7 +65,7 @@ Check out this trip on Luxury Travel Selector!
             onClick={handleShare}
             title="Share Trip Summary"
           >
-            <i className="bi bi-share-fill me-2"></i>
+            <i className="bi bi-send-fill me-2"></i>
             Share Trip
           </button>
         </div>
