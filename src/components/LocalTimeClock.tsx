@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useWeather } from "../hooks/useWeather";
+import type { WeatherData } from "../hooks/useWeather";
 
 interface Props {
-  city: string;
+  weather: WeatherData | null;
+  loading: boolean;
 }
 
-const LocalTimeClock = ({ city }: Props) => {
+const LocalTimeClock = ({ weather, loading }: Props) => {
   const [time, setTime] = useState<Date>(new Date());
-  const { weather, loading } = useWeather(city);
 
   useEffect(() => {
     const timer = setInterval(() => {

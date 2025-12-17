@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Button from "./Button";
 import WeatherWidget from "./WeatherWidget";
 import CurrencyConverter from "./CurrencyConverter";
 import LocalTimeClock from "./LocalTimeClock";
@@ -9,6 +8,7 @@ import TripBudgetEstimator from "./TripBudgetEstimator";
 import DailyItinerary from "./DailyItinerary";
 import LocalCuisineGuide from "./LocalCuisineGuide";
 import { cityImages, citySuggestions, cityCoordinates, cityItineraries } from "../data/cities";
+import { useWeather } from "../hooks/useWeather";
 
 interface Props {
   selectedCity: string;
@@ -17,10 +17,11 @@ interface Props {
 
 const CityDetails = ({ selectedCity, onBack }: Props) => {
   const coords = cityCoordinates[selectedCity];
+  const { weather, loading, error } = useWeather(selectedCity);
   const [estimatedCost, setEstimatedCost] = useState(0);
   const [showShareToast, setShowShareToast] = useState(false);
 
-  const handleShare = () => {
+  const handleShare = async () => {
     const itinerary = cityItineraries[selectedCity];
     const activities = itinerary 
       ? itinerary.map(day => `- Day ${day.day}: ${day.title} (${day.activities.join(", ")})`).join("\n")
@@ -35,6 +36,19 @@ ${activities}
 
 Check out this trip on Luxury Travel Selector!
     `.trim();
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Trip to ${selectedCity}`,
+          text: summary,
+        });
+        return;
+      } catch (err) {
+        // User cancelled or share failed, fall back to clipboard
+        console.debug('Share failed or cancelled, falling back to clipboard', err);
+      }
+    }
 
     navigator.clipboard.writeText(summary).then(() => {
       setShowShareToast(true);
@@ -72,10 +86,10 @@ Check out this trip on Luxury Travel Selector!
         
         <div className="row mb-4">
           <div className="col-md-4">
-             <WeatherWidget city={selectedCity} />
+             <WeatherWidget weather={weather} loading={loading} error={error} />
           </div>
           <div className="col-md-4">
-             <LocalTimeClock city={selectedCity} />
+             <LocalTimeClock weather={weather} loading={loading} />
           </div>
           <div className="col-md-4">
             {coords && (
@@ -122,17 +136,21 @@ Check out this trip on Luxury Travel Selector!
         <div className="alert alert-info mb-4">
           <strong>Travel Tip:</strong> {citySuggestions[selectedCity]}
         </div>
-        <div className="row mb-3">
-          <div className="col-4">
-            <img src={cityImages[selectedCity]?.[0]} className="img-fluid rounded shadow-sm" alt={`${selectedCity} view 1`} />
+        
+        {cityImages[selectedCity] && (
+          <div className="row mb-3">
+            {cityImages[selectedCity].map((imgSrc, index) => (
+              <div className="col-4" key={index}>
+                <img 
+                  src={imgSrc} 
+                  className="img-fluid rounded shadow-sm w-100" 
+                  style={{ height: '200px', objectFit: 'cover' }}
+                  alt={`${selectedCity} view ${index + 1}`} 
+                />
+              </div>
+            ))}
           </div>
-          <div className="col-4">
-            <img src={cityImages[selectedCity]?.[1]} className="img-fluid rounded shadow-sm" alt={`${selectedCity} view 2`} />
-          </div>
-          <div className="col-4">
-            <img src={cityImages[selectedCity]?.[2]} className="img-fluid rounded shadow-sm" alt={`${selectedCity} view 3`} />
-          </div>
-        </div>
+        )}
         
         <div className="text-center mt-5">
           <button className="btn-back-luxury" onClick={onBack}>

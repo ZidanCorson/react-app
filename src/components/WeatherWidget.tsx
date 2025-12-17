@@ -1,12 +1,13 @@
-import { useWeather, getWeatherDescription } from "../hooks/useWeather";
+import { getWeatherDescription } from "../hooks/useWeather";
+import type { WeatherData } from "../hooks/useWeather";
 
 interface Props {
-  city: string;
+  weather: WeatherData | null;
+  loading: boolean;
+  error: string;
 }
 
-const WeatherWidget = ({ city }: Props) => {
-  const { weather, loading, error } = useWeather(city);
-
+const WeatherWidget = ({ weather, loading, error }: Props) => {
   if (loading) return <div className="text-center p-3 h-100 d-flex align-items-center justify-content-center">Loading weather...</div>;
   if (error) return <div className="text-center p-3 text-danger h-100 d-flex align-items-center justify-content-center">{error}</div>;
   if (!weather) return null;
