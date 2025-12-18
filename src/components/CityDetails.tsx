@@ -129,7 +129,7 @@ Check out this trip on Luxury Travel Selector!
             <LocalCuisineGuide city={selectedCity} />
           </div>
           <div className="col-md-4">
-            <SmartPackingList city={selectedCity} />
+            <SmartPackingList city={selectedCity} weather={weather} loading={loading} />
           </div>
         </div>
 

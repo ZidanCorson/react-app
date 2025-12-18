@@ -6,16 +6,16 @@ interface Props {
   onCostChange?: (cost: number) => void;
 }
 
+const baseRates = {
+  Budget: 50,
+  Standard: 150,
+  Luxury: 400
+};
+
 const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
   const [travelers, setTravelers] = useState(1);
   const [days, setDays] = useState(3);
   const [style, setStyle] = useState<"Budget" | "Standard" | "Luxury">("Standard");
-
-  const baseRates = {
-    Budget: 50,
-    Standard: 150,
-    Luxury: 400
-  };
 
   const multiplier = cityCostMultipliers[city] || 1;
   const dailyCost = baseRates[style] * multiplier;

@@ -26,7 +26,8 @@ function App() {
   };
 
   const handleSurpriseMe = () => {
-    const randomCity = items[Math.floor(Math.random() * items.length)];
+    const availableCities = items.filter(city => city !== selectedCity);
+    const randomCity = availableCities[Math.floor(Math.random() * availableCities.length)];
     handleSelectItem(randomCity);
   };
 

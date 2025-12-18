@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { useWeather } from "../hooks/useWeather";
+import type { WeatherData } from "../hooks/useWeather";
 
 interface Props {
   city: string;
+  weather: WeatherData | null;
+  loading: boolean;
 }
 
-const SmartPackingList = ({ city }: Props) => {
-  const { weather, loading } = useWeather(city);
+const SmartPackingList = ({ city, weather, loading }: Props) => {
   const [packedItems, setPackedItems] = useState<Set<string>>(new Set());
   const [customItems, setCustomItems] = useState<string[]>([]);
   const [newItemText, setNewItemText] = useState("");
