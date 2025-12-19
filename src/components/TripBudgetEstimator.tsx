@@ -12,10 +12,23 @@ const baseRates = {
   Luxury: 400
 };
 
+const seasonMultipliers = {
+  "Off-Peak": 0.85,
+  "Standard": 1.0,
+  "Peak": 1.4
+};
+
 const breakdownPercentages = {
   Budget: { Accommodation: 0.4, Food: 0.3, Transport: 0.2, Activities: 0.1 },
   Standard: { Accommodation: 0.45, Food: 0.3, Transport: 0.15, Activities: 0.1 },
   Luxury: { Accommodation: 0.5, Food: 0.25, Transport: 0.15, Activities: 0.1 }
+};
+
+const categoryColors: Record<string, string> = {
+  Accommodation: "bg-primary",
+  Food: "bg-success",
+  Transport: "bg-info",
+  Activities: "bg-warning"
 };
 
 const styleDescriptions = {
@@ -28,9 +41,11 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
   const [travelers, setTravelers] = useState(1);
   const [days, setDays] = useState(3);
   const [style, setStyle] = useState<"Budget" | "Standard" | "Luxury">("Standard");
+  const [season, setSeason] = useState<keyof typeof seasonMultipliers>("Standard");
 
   const multiplier = cityCostMultipliers[city] || 1;
-  const dailyCost = baseRates[style] * multiplier;
+  const seasonMult = seasonMultipliers[season];
+  const dailyCost = baseRates[style] * multiplier * seasonMult;
   const totalCost = dailyCost * travelers * days;
   const breakdown = breakdownPercentages[style];
 
@@ -47,53 +62,62 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
           <i className="bi bi-wallet2 me-2 text-warning"></i>
           Trip Budget Estimator
         </h5>
-        <h3 className="card-text text-primary mb-4" style={{ color: "#2c3e50" }}>
+        <h3 className="card-text text-primary mb-2" style={{ color: "#2c3e50" }}>
           ${Math.round(totalCost).toLocaleString()}
           <span className="text-muted fs-6 ms-2">est. total</span>
         </h3>
+        <div className="small text-muted mb-4">
+            ${Math.round(totalCost / travelers).toLocaleString()} per person
+        </div>
 
-        <div className="mb-4 p-3 bg-light rounded">
-          <h6 className="text-muted mb-3 small text-uppercase">Estimated Breakdown</h6>
-          {Object.entries(breakdown).map(([category, percent]) => (
-            <div key={category} className="d-flex justify-content-between mb-2 small">
-              <span className="text-muted">{category}</span>
-              <span className="fw-bold">${Math.round(totalCost * percent).toLocaleString()}</span>
+        {/* Visual Breakdown Bar */}
+        <div className="mb-4">
+            <div className="progress" style={{ height: "12px" }}>
+                {Object.entries(breakdown).map(([category, percent]) => (
+                    <div 
+                        key={category}
+                        className={`progress-bar ${categoryColors[category]}`} 
+                        role="progressbar" 
+                        style={{ width: `${percent * 100}%` }}
+                        title={`${category}: $${Math.round(totalCost * percent).toLocaleString()}`}
+                    ></div>
+                ))}
             </div>
-          ))}
+            <div className="d-flex justify-content-between mt-2 flex-wrap">
+                {Object.entries(breakdown).map(([category, percent]) => (
+                    <div key={category} className="d-flex align-items-center me-2">
+                        <span className={`d-inline-block rounded-circle ${categoryColors[category]} me-1`} style={{width: '8px', height: '8px'}}></span>
+                        <span className="small text-muted" style={{fontSize: '0.75rem'}}>
+                            {category} (${Math.round(totalCost * percent).toLocaleString()})
+                        </span>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        {/* Compact Controls */}
+        <div className="row g-2 mb-3">
+            <div className="col-6">
+                 <label className="form-label small text-muted">Travelers: <span className="fw-bold text-dark">{travelers}</span></label>
+                 <input type="range" className="form-range range-luxury" min="1" max="10" value={travelers} onChange={(e) => setTravelers(parseInt(e.target.value))} />
+            </div>
+            <div className="col-6">
+                 <label className="form-label small text-muted">Days: <span className="fw-bold text-dark">{days}</span></label>
+                 <input type="range" className="form-range range-luxury" min="1" max="14" value={days} onChange={(e) => setDays(parseInt(e.target.value))} />
+            </div>
         </div>
 
         <div className="mb-3">
-          <label className="form-label small text-muted">Travelers</label>
-          <input
-            type="range"
-            className="form-range range-luxury"
-            min="1"
-            max="10"
-            value={travelers}
-            onChange={(e) => setTravelers(parseInt(e.target.value))}
-          />
-          <div className="d-flex justify-content-between small text-muted">
-            <span>1</span>
-            <span className="fw-bold text-dark">{travelers} people</span>
-            <span>10</span>
-          </div>
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label small text-muted">Duration (Days)</label>
-          <input
-            type="range"
-            className="form-range range-luxury"
-            min="1"
-            max="14"
-            value={days}
-            onChange={(e) => setDays(parseInt(e.target.value))}
-          />
-          <div className="d-flex justify-content-between small text-muted">
-            <span>1</span>
-            <span className="fw-bold text-dark">{days} days</span>
-            <span>14</span>
-          </div>
+            <label className="form-label small text-muted">Season</label>
+            <select 
+                className="form-select form-select-sm" 
+                value={season} 
+                onChange={(e) => setSeason(e.target.value as keyof typeof seasonMultipliers)}
+            >
+                {Object.keys(seasonMultipliers).map(s => (
+                    <option key={s} value={s}>{s} Season (x{seasonMultipliers[s as keyof typeof seasonMultipliers]})</option>
+                ))}
+            </select>
         </div>
 
         <div className="mb-3">
