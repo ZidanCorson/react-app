@@ -42,6 +42,8 @@ const CurrencyConverter = ({ city }: Props) => {
   const numericAmount = parseFloat(amount) || 0;
   const convertedAmount = rate ? (numericAmount * rate).toFixed(2) : "---";
 
+  const quickAmounts = [5, 10, 20, 50, 100];
+
   return (
     <div className="card shadow-sm h-100">
       <div className="card-body">
@@ -88,6 +90,26 @@ const CurrencyConverter = ({ city }: Props) => {
               </>
             )}
           </div>
+
+          {rate && !loading && !error && (
+            <div className="mt-4">
+              <h6 className="text-muted small text-uppercase mb-2">Quick Reference</h6>
+              <div className="table-responsive">
+                <table className="table table-sm table-borderless mb-0 small">
+                  <tbody>
+                    {quickAmounts.map((amt) => (
+                      <tr key={amt} className="border-bottom">
+                        <td className="text-muted">${amt}</td>
+                        <td className="text-end fw-bold text-dark">
+                          {currency.symbol}{(amt * rate).toFixed(0)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
