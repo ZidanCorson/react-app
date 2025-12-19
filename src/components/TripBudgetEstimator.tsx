@@ -12,6 +12,18 @@ const baseRates = {
   Luxury: 400
 };
 
+const breakdownPercentages = {
+  Budget: { Accommodation: 0.4, Food: 0.3, Transport: 0.2, Activities: 0.1 },
+  Standard: { Accommodation: 0.45, Food: 0.3, Transport: 0.15, Activities: 0.1 },
+  Luxury: { Accommodation: 0.5, Food: 0.25, Transport: 0.15, Activities: 0.1 }
+};
+
+const styleDescriptions = {
+  Budget: "Hostels, public transport, street food",
+  Standard: "3-star hotels, taxis/rental, casual dining",
+  Luxury: "5-star hotels, private transfers, fine dining"
+};
+
 const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
   const [travelers, setTravelers] = useState(1);
   const [days, setDays] = useState(3);
@@ -20,6 +32,7 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
   const multiplier = cityCostMultipliers[city] || 1;
   const dailyCost = baseRates[style] * multiplier;
   const totalCost = dailyCost * travelers * days;
+  const breakdown = breakdownPercentages[style];
 
   useEffect(() => {
     if (onCostChange) {
@@ -38,6 +51,16 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
           ${Math.round(totalCost).toLocaleString()}
           <span className="text-muted fs-6 ms-2">est. total</span>
         </h3>
+
+        <div className="mb-4 p-3 bg-light rounded">
+          <h6 className="text-muted mb-3 small text-uppercase">Estimated Breakdown</h6>
+          {Object.entries(breakdown).map(([category, percent]) => (
+            <div key={category} className="d-flex justify-content-between mb-2 small">
+              <span className="text-muted">{category}</span>
+              <span className="fw-bold">${Math.round(totalCost * percent).toLocaleString()}</span>
+            </div>
+          ))}
+        </div>
 
         <div className="mb-3">
           <label className="form-label small text-muted">Travelers</label>
@@ -86,6 +109,9 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
                 {s}
               </button>
             ))}
+          </div>
+          <div className="text-center mt-2 small text-muted fst-italic">
+            {styleDescriptions[style]}
           </div>
         </div>
       </div>
