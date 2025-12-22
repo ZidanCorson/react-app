@@ -213,7 +213,7 @@ export const cityCuisine: { [key: string]: { dish: string; description: string }
   "London": [
     { dish: "Fish and Chips", description: "Hot dish consisting of fried fish in batter, served with chips." },
     { dish: "Sunday Roast", description: "Traditional British main meal that is typically served on Sunday, consisting of roasted meat, roast potato, and accompaniments." },
-    { dish: "Chicken Tikka Masala", description: "Chunks of roasted marinated chicken (chicken tikka) in a spiced curry sauce." }
+    { dish: "Full English Breakfast", description: "A substantial traditional breakfast including bacon, eggs, sausages, baked beans, toast, and tea." }
   ],
   "Marrakech": [
     { dish: "Tagine", description: "Slow-cooked savory stew made with sliced meat, poultry or fish together with vegetables or fruit." },
