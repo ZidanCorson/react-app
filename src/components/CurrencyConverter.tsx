@@ -10,6 +10,7 @@ const CurrencyConverter = ({ city }: Props) => {
   const [rate, setRate] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [isUsdBase, setIsUsdBase] = useState<boolean>(true);
   
   const currency = cityCurrencies[city];
 
@@ -39,10 +40,30 @@ const CurrencyConverter = ({ city }: Props) => {
 
   if (!currency) return null;
 
-  const numericAmount = parseFloat(amount) || 0;
-  const convertedAmount = rate ? (numericAmount * rate).toFixed(2) : "---";
+  const numericAmount = Math.max(0, parseFloat(amount) || 0);
+  
+  let convertedAmount = "---";
+  let displayRate = "---";
+
+  if (rate) {
+    if (isUsdBase) {
+      convertedAmount = new Intl.NumberFormat('en-US', { style: 'currency', currency: currency.code }).format(numericAmount * rate);
+      displayRate = `1 USD = ${rate} ${currency.code}`;
+    } else {
+      convertedAmount = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(numericAmount / rate);
+      displayRate = `1 ${currency.code} = ${(1/rate).toFixed(4)} USD`;
+    }
+  }
 
   const quickAmounts = [5, 10, 20, 50, 100];
+
+  const handleSwap = () => {
+    setIsUsdBase(!isUsdBase);
+  };
+
+  const inputCurrencyCode = isUsdBase ? "USD" : currency.code;
+  const inputCurrencySymbol = isUsdBase ? "$" : currency.symbol;
+  const outputCurrencyCode = isUsdBase ? currency.code : "USD";
 
   return (
     <div className="card shadow-sm h-100">
@@ -53,13 +74,13 @@ const CurrencyConverter = ({ city }: Props) => {
         </h5>
         <div className="mt-3">
           <div className="mb-3">
-            <label htmlFor="usd-amount" className="form-label small text-muted">Amount (USD)</label>
+            <label htmlFor="amount-input" className="form-label small text-muted">Amount ({inputCurrencyCode})</label>
             <div className="input-group">
-              <span className="input-group-text">$</span>
+              <span className="input-group-text">{inputCurrencySymbol}</span>
               <input
                 type="number"
                 className="form-control"
-                id="usd-amount"
+                id="amount-input"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 min="0"
@@ -68,7 +89,13 @@ const CurrencyConverter = ({ city }: Props) => {
           </div>
           
           <div className="text-center mb-2">
-            <i className="bi bi-arrow-down-circle text-primary" style={{ fontSize: "1.5rem" }}></i>
+            <button 
+                className="btn btn-link text-decoration-none p-0" 
+                onClick={handleSwap}
+                title="Swap Currencies"
+            >
+                <i className="bi bi-arrow-down-up text-primary" style={{ fontSize: "1.5rem" }}></i>
+            </button>
           </div>
 
           <div className="alert alert-light border text-center mb-0">
@@ -80,12 +107,12 @@ const CurrencyConverter = ({ city }: Props) => {
               <div className="text-danger small">{error}</div>
             ) : (
               <>
-                <div className="small text-muted">{currency.code}</div>
+                <div className="small text-muted">{outputCurrencyCode}</div>
                 <div className="fs-4 fw-bold text-primary">
-                  {currency.symbol}{convertedAmount}
+                  {convertedAmount}
                 </div>
                 <div className="small text-muted mt-1" style={{ fontSize: "0.7rem" }}>
-                  1 USD = {rate} {currency.code}
+                  {displayRate}
                 </div>
               </>
             )}
@@ -93,18 +120,24 @@ const CurrencyConverter = ({ city }: Props) => {
 
           {rate && !loading && !error && (
             <div className="mt-4">
-              <h6 className="text-muted small text-uppercase mb-2">Quick Reference</h6>
+              <h6 className="text-muted small text-uppercase mb-2">Quick Reference ({inputCurrencyCode})</h6>
               <div className="table-responsive">
                 <table className="table table-sm table-borderless mb-0 small">
                   <tbody>
-                    {quickAmounts.map((amt) => (
-                      <tr key={amt} className="border-bottom">
-                        <td className="text-muted">${amt}</td>
-                        <td className="text-end fw-bold text-dark">
-                          {currency.symbol}{(amt * rate).toFixed(0)}
-                        </td>
-                      </tr>
-                    ))}
+                    {quickAmounts.map((amt) => {
+                        const converted = isUsdBase 
+                            ? new Intl.NumberFormat('en-US', { style: 'currency', currency: currency.code }).format(amt * rate)
+                            : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amt / rate);
+                        
+                        return (
+                            <tr key={amt} className="border-bottom">
+                                <td className="text-muted">{inputCurrencySymbol}{amt}</td>
+                                <td className="text-end fw-bold text-dark">
+                                {converted}
+                                </td>
+                            </tr>
+                        );
+                    })}
                   </tbody>
                 </table>
               </div>
