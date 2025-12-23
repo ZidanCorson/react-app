@@ -9,6 +9,14 @@ function App() {
   const [selectedCity, setSelectedCity] = useState(() => {
     return localStorage.getItem("travel-app-selected-city") || "";
   });
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem("travel-app-favorites") || "[]");
+    } catch {
+      return [];
+    }
+  });
+  const [view, setView] = useState<'home' | 'favorites'>('home');
   const [alertVisible, setAlertVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -19,6 +27,19 @@ function App() {
       localStorage.removeItem("travel-app-selected-city");
     }
   }, [selectedCity]);
+
+  useEffect(() => {
+    localStorage.setItem("travel-app-favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = (e: React.MouseEvent, city: string) => {
+    e.stopPropagation();
+    setFavorites(prev => 
+      prev.includes(city) 
+        ? prev.filter(c => c !== city) 
+        : [...prev, city]
+    );
+  };
 
   const handleSelectItem = (item: string) => {
     setSelectedCity(item);
@@ -36,9 +57,11 @@ function App() {
     setSelectedCity("");
   };
 
-  const filteredItems = items.filter(city => 
-    city.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredItems = items.filter(city => {
+    const matchesSearch = city.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesView = view === 'home' || favorites.includes(city);
+    return matchesSearch && matchesView;
+  });
 
   return ( 
     <div className="app-overlay">
@@ -57,16 +80,38 @@ function App() {
             
             {!selectedCity && (
               <>
-                <div className="mb-4 d-flex justify-content-center">
-                  <div className="input-group" style={{ maxWidth: "500px" }}>
-                    <span className="input-group-text bg-white border-0"><i className="bi bi-search"></i></span>
+                <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mb-5">
+                  <div className="bg-white p-1 rounded-pill shadow-sm d-flex" style={{ backgroundColor: "rgba(255, 255, 255, 0.95)" }}>
+                    <button 
+                      className={`btn rounded-pill px-4 fw-bold ${view === 'home' ? 'btn-primary shadow-sm' : 'btn-light bg-transparent text-muted border-0'}`}
+                      onClick={() => setView('home')}
+                      style={{ minWidth: "150px", transition: "all 0.3s ease" }}
+                    >
+                      All Destinations
+                    </button>
+                    <button 
+                      className={`btn rounded-pill px-4 fw-bold ${view === 'favorites' ? 'btn-primary shadow-sm' : 'btn-light bg-transparent text-muted border-0'}`}
+                      onClick={() => setView('favorites')}
+                      style={{ minWidth: "150px", transition: "all 0.3s ease" }}
+                    >
+                      <i className={`bi ${view === 'favorites' ? 'bi-heart-fill' : 'bi-heart'} me-2 ${view === 'favorites' ? '' : 'text-danger'}`}></i>
+                      Bucket List
+                    </button>
+                  </div>
+
+                  <div className="position-relative" style={{ width: "350px", maxWidth: "100%" }}>
+                    <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" style={{ zIndex: 5 }}></i>
                     <input 
                       type="text" 
-                      className="form-control border-0 shadow-sm p-3" 
-                      placeholder="Search destinations..." 
+                      className="form-control border-0 shadow-sm rounded-pill ps-5 py-2" 
+                      placeholder={view === 'favorites' ? "Search your bucket list..." : "Search destinations..."}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      style={{ borderRadius: "0 30px 30px 0" }}
+                      style={{ 
+                        backgroundColor: "rgba(255, 255, 255, 0.95)", 
+                        height: "48px",
+                        fontSize: "1rem"
+                      }}
                     />
                   </div>
                 </div>
@@ -75,13 +120,21 @@ function App() {
                   {filteredItems.map((city) => (
                     <div key={city} className="col">
                       <div 
-                        className="card h-100 shadow-sm city-card border-0" 
+                        className="card h-100 shadow-sm city-card border-0 position-relative" 
                         onClick={() => handleSelectItem(city)}
                         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelectItem(city) }}
                         role="button"
                         tabIndex={0}
                         style={{ cursor: "pointer", transition: "transform 0.2s" }}
                       >
+                        <button
+                          className="btn btn-link position-absolute top-0 end-0 p-3 text-white"
+                          style={{ zIndex: 10, filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))" }}
+                          onClick={(e) => toggleFavorite(e, city)}
+                          title={favorites.includes(city) ? "Remove from Bucket List" : "Add to Bucket List"}
+                        >
+                          <i className={`bi ${favorites.includes(city) ? 'bi-heart-fill text-danger' : 'bi-heart'}`} style={{ fontSize: "1.5rem" }}></i>
+                        </button>
                         <div style={{ height: "200px", overflow: "hidden" }}>
                           <img 
                             src={cityImages[city]?.[0]} 
@@ -101,7 +154,11 @@ function App() {
 
                 {filteredItems.length === 0 && (
                    <div className="text-center text-white mb-5">
-                     <p className="fs-4">No destinations found matching "{searchQuery}"</p>
+                     <p className="fs-4">
+                       {view === 'favorites' 
+                         ? (searchQuery ? `No favorites found matching "${searchQuery}"` : "Your bucket list is empty. Start adding destinations!") 
+                         : `No destinations found matching "${searchQuery}"`}
+                     </p>
                    </div>
                 )}
 
@@ -110,6 +167,10 @@ function App() {
                     <i className="bi bi-stars me-2 text-warning"></i>Surprise Me!
                   </Button>
                 </div>
+                
+                <footer className="text-center mt-5 text-white-50">
+                  <small>&copy; 2025 Luxury Travel Selector. All rights reserved.</small>
+                </footer>
               </>
             )}
 
