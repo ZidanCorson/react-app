@@ -14,6 +14,7 @@ export const useWeather = (city: string) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    let ignore = false;
     const fetchWeather = async () => {
       const coords = cityCoordinates[city];
       if (!coords) return;
@@ -24,21 +25,31 @@ export const useWeather = (city: string) => {
         const response = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lng}&current_weather=true&timezone=auto`
         );
-        const data = await response.json();
-        setWeather({
-          temperature: data.current_weather.temperature,
-          weatherCode: data.current_weather.weathercode,
-          isDay: data.current_weather.is_day,
-          timezone: data.timezone,
-        });
+        if (!ignore) {
+          const data = await response.json();
+          setWeather({
+            temperature: data.current_weather.temperature,
+            weatherCode: data.current_weather.weathercode,
+            isDay: data.current_weather.is_day,
+            timezone: data.timezone,
+          });
+        }
       } catch (err) {
-        setError("Failed to load weather");
+        if (!ignore) {
+          setError("Failed to load weather");
+        }
       } finally {
-        setLoading(false);
+        if (!ignore) {
+          setLoading(false);
+        }
       }
     };
 
     fetchWeather();
+
+    return () => {
+      ignore = true;
+    };
   }, [city]);
 
   return { weather, loading, error };
