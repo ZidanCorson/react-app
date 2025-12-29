@@ -55,13 +55,30 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
     }
   }, [totalCost, onCostChange]);
 
+  const handleReset = () => {
+    setTravelers(1);
+    setDays(3);
+    setStyle("Standard");
+    setSeason("Standard");
+  };
+
   return (
     <div className="card shadow-sm h-100">
       <div className="card-body">
-        <h5 className="card-title text-muted text-uppercase" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
-          <i className="bi bi-wallet2 me-2 text-warning"></i>
-          Trip Budget Estimator
-        </h5>
+        <div className="d-flex justify-content-between align-items-center mb-2">
+          <h5 className="card-title text-muted text-uppercase mb-0" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+            <i className="bi bi-wallet2 me-2 text-warning"></i>
+            Trip Budget Estimator
+          </h5>
+          <button 
+            className="btn btn-sm btn-link text-muted p-0" 
+            onClick={handleReset}
+            style={{ textDecoration: 'none' }}
+            title="Reset to defaults"
+          >
+            <i className="bi bi-arrow-counterclockwise"></i> Reset
+          </button>
+        </div>
         <h3 className="card-text text-primary mb-2" style={{ color: "#2c3e50" }}>
           ${Math.round(totalCost).toLocaleString()}
           <span className="text-muted fs-6 ms-2">est. total</span>
@@ -79,6 +96,10 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
                         className={`progress-bar ${categoryColors[category]}`} 
                         role="progressbar" 
                         style={{ width: `${percent * 100}%` }}
+                        aria-valuenow={Math.round(percent * 100)}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-label={`${category}: ${Math.round(percent * 100)}%`}
                         title={`${category}: $${Math.round(totalCost * percent).toLocaleString()}`}
                     ></div>
                 ))}
@@ -98,12 +119,30 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
         {/* Compact Controls */}
         <div className="row g-2 mb-3">
             <div className="col-6">
-                 <label className="form-label small text-muted">Travelers: <span className="fw-bold text-dark">{travelers}</span></label>
-                 <input type="range" className="form-range range-luxury" min="1" max="10" value={travelers} onChange={(e) => setTravelers(parseInt(e.target.value))} />
+                 <label className="form-label small text-muted" htmlFor="travelers-range">Travelers: <span className="fw-bold text-dark">{travelers}</span></label>
+                 <input 
+                    id="travelers-range"
+                    type="range" 
+                    className="form-range range-luxury" 
+                    min="1" 
+                    max="10" 
+                    value={travelers} 
+                    onChange={(e) => setTravelers(parseInt(e.target.value))} 
+                    aria-label="Number of travelers"
+                 />
             </div>
             <div className="col-6">
-                 <label className="form-label small text-muted">Days: <span className="fw-bold text-dark">{days}</span></label>
-                 <input type="range" className="form-range range-luxury" min="1" max="14" value={days} onChange={(e) => setDays(parseInt(e.target.value))} />
+                 <label className="form-label small text-muted" htmlFor="days-range">Days: <span className="fw-bold text-dark">{days}</span></label>
+                 <input 
+                    id="days-range"
+                    type="range" 
+                    className="form-range range-luxury" 
+                    min="1" 
+                    max="14" 
+                    value={days} 
+                    onChange={(e) => setDays(parseInt(e.target.value))} 
+                    aria-label="Number of days"
+                 />
             </div>
         </div>
 
@@ -113,9 +152,12 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
                 className="form-select form-select-sm" 
                 value={season} 
                 onChange={(e) => setSeason(e.target.value as keyof typeof seasonMultipliers)}
+                aria-label="Select Season"
             >
                 {Object.keys(seasonMultipliers).map(s => (
-                    <option key={s} value={s}>{s} Season (x{seasonMultipliers[s as keyof typeof seasonMultipliers]})</option>
+                    <option key={s} value={s}>
+                        {s} {seasonMultipliers[s as keyof typeof seasonMultipliers] !== 1 ? `(x${seasonMultipliers[s as keyof typeof seasonMultipliers]})` : ''}
+                    </option>
                 ))}
             </select>
         </div>
