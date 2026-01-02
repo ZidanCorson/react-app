@@ -32,10 +32,11 @@ const TravelJournal = ({ city }: Props) => {
 
   return (
     <div className="card shadow-sm h-100">
-      <div className="card-header bg-white">
-        <h5 className="mb-0"><i className="bi bi-journal-text me-2 text-primary"></i>Travel Journal</h5>
-      </div>
       <div className="card-body">
+        <h5 className="card-title text-muted text-uppercase mb-3" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+          <i className="bi bi-journal-text me-2 text-primary"></i>
+          Travel Journal
+        </h5>
         <div className="mb-3">
           <textarea
             className="form-control mb-2"
