@@ -7,6 +7,7 @@ import SmartPackingList from "./SmartPackingList";
 import TripBudgetEstimator from "./TripBudgetEstimator";
 import DailyItinerary from "./DailyItinerary";
 import LocalCuisineGuide from "./LocalCuisineGuide";
+import TravelJournal from "./TravelJournal";
 import { cityImages, citySuggestions, cityCoordinates, cityItineraries } from "../data/cities";
 import { useWeather } from "../hooks/useWeather";
 
@@ -122,14 +123,20 @@ Check out this trip on Luxury Travel Selector!
         </div>
 
         <div className="row mb-4">
-          <div className="col-md-4">
+          <div className="col-md-6">
             <LocalPhrasebook city={selectedCity} />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <LocalCuisineGuide city={selectedCity} />
           </div>
-          <div className="col-md-4">
+        </div>
+
+        <div className="row mb-4">
+          <div className="col-md-6">
             <SmartPackingList city={selectedCity} weather={weather} loading={loading} />
+          </div>
+          <div className="col-md-6">
+            <TravelJournal city={selectedCity} />
           </div>
         </div>
 
